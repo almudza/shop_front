@@ -12,7 +12,7 @@ const isActive = (history, path) => {
 const Menu = ({ history }) => {
     return (
         <div className="">
-            <nav className="navbar navbar-expand-sm navbar-dark bg-primary">
+            <nav className="navbar navbar-expand-sm navbar-dark bg-primary mb-2">
                 <div className="container">
                     <span className="navbar-brand">Home</span>
                     <button
@@ -31,7 +31,7 @@ const Menu = ({ history }) => {
                         className="collapse navbar-collapse"
                         id="navbarSupportedContent"
                     >
-                        <ul className="navbar-nav ml-5 mr-auto">
+                        <ul className="navbar-nav mr-auto">
                             <li className="nav-item">
                                 <Link
                                     to="/"
@@ -53,7 +53,7 @@ const Menu = ({ history }) => {
                         </ul>
 
                         {/* This is a right Menu */}
-                        <ul className="navbar-nav float-right">
+                        <ul className="navbar-nav float-sm-right">
                             <li className="nav-item">
                                 <Link
                                     style={isActive(history, '/login')}
@@ -73,8 +73,8 @@ const Menu = ({ history }) => {
                                 </Link>
                             </li>
                         </ul>
-                        <ul className="navbar-nav float-right">
-                            <li className="nav-item dropdown float-right">
+                        {/* <ul className="navbar-nav float-sm-right">
+                            <li className="nav-item dropdown float-sm-right">
                                 <span
                                     className="nav-link dropdown-toggle"
                                     id="navbarDropdown"
@@ -101,7 +101,7 @@ const Menu = ({ history }) => {
                                     </Link>
                                 </div>
                             </li>
-                        </ul>
+                        </ul> */}
                     </div>
                 </div>
             </nav>

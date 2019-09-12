@@ -1,10 +1,11 @@
 import React from 'react'
+import Layout from '../core/Layout'
 
 const Login = () => {
     return (
-        <div className="container">
-            <h1>Login</h1>
-        </div>
+        <Layout title="login page">
+            <h2>Login page</h2>
+        </Layout>
     )
 }
 

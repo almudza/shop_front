@@ -1,10 +1,19 @@
 import React from 'react'
+import Layout from './Layout'
+import { API } from '../config'
 
 const Home = () => {
     return (
-        <div className="">
-            <h2>Home</h2>
-        </div>
+        <Layout
+            title="Home Page"
+            className="container"
+            description="Node ecommerce"
+        >
+            <div className="card">
+                <h1>Home</h1>
+                <p>{API} </p>
+            </div>
+        </Layout>
     )
 }
 

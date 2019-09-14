@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import Layout from '../core/Layout'
 import { Link } from 'react-router-dom'
-import { API } from '../config'
-import styles from './Spinner.module.css'
+import { signin, authenticate } from './auth'
+import { showError } from '../components/ShowError'
+import { spinner } from '../components/Spinner'
 
 const Login = props => {
     // console.log(props)
@@ -19,30 +20,6 @@ const Login = props => {
 
     const handleChange = name => e => {
         setValues({ ...values, error: '', [name]: e.target.value })
-    }
-
-    // SignIn method api
-    const signin = user => {
-        console.log(user)
-        return fetch(`${API}/signin`, {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(user),
-        })
-            .then(response => {
-                return response.json()
-            })
-            .catch(err => console.log(err))
-    }
-
-    const authenticate = (data, next) => {
-        if (typeof window !== undefined) {
-            localStorage.setItem('jwt', JSON.stringify(data))
-            next()
-        }
     }
 
     const clickSubmit = e => {
@@ -112,23 +89,9 @@ const Login = props => {
         </form>
     )
 
-    const showError = () => (
-        <div
-            style={{ display: error ? '' : 'none' }}
-            className="alert alert-danger"
-        >
-            {error}
-        </div>
-    )
-    const spinner = () => (
-        <div className="text-center">
-            <div className={styles.loading}></div>
-        </div>
-    )
-
     return (
         <Layout className="col-md-4 offset-md-4 mt-5" title="Login">
-            {showError()}
+            {showError(error)}
             <div className="card mt-1">
                 <h2 className="text-center card-title pt-4">Login</h2>
                 {loading ? spinner() : ''}

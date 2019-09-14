@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import Layout from '../core/Layout'
-import { API } from '../config'
 import { Link } from 'react-router-dom'
-import styles from './Spinner.module.css'
+import { showError } from '../components/ShowError'
+import { spinner } from '../components/Spinner'
+import { signup } from './auth'
 
 const Register = () => {
     const [values, setValues] = useState({
@@ -29,23 +30,6 @@ const Register = () => {
             return false
         }
         return true
-    }
-
-    // Signup Method
-    const signup = user => {
-        // console.log(name, email, password)
-        return fetch(`${API}/signup`, {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(user),
-        })
-            .then(response => {
-                return response.json()
-            })
-            .catch(err => console.log(err))
     }
 
     const clickSubmit = e => {
@@ -78,16 +62,6 @@ const Register = () => {
             // .catch(err => console.log(err))
         }
     }
-
-    // error message
-    const showError = () => (
-        <div
-            style={{ display: error ? '' : 'none' }}
-            className="alert alert-danger"
-        >
-            {error}
-        </div>
-    )
 
     const showSuccess = () => (
         <div
@@ -155,15 +129,9 @@ const Register = () => {
         </form>
     )
 
-    const spinner = () => (
-        <div className="text-center">
-            <div className={styles.loading}></div>
-        </div>
-    )
-
     return (
         <Layout className="col-md-4 offset-md-4 mt-5" title="Register">
-            {showError()}
+            {showError(error)}
             {showSuccess()}
             <div className="card mt-1">
                 <h2 className="text-center card-title pt-4">Register</h2>

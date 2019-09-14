@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
+import { signout, isAuthenticated } from '../user/auth'
 
 const isActive = (history, path) => {
     if (history.location.pathname === path) {
@@ -8,6 +9,21 @@ const isActive = (history, path) => {
         return { color: 'hsla(0,0%,100%,.5)' }
     }
 }
+
+const firstName = () => {
+    if (isAuthenticated()) {
+        let fullName = isAuthenticated().user.name
+        let showName = fullName.split(' ').slice(0, 1)
+        return showName
+    }
+}
+
+// const firstName = fullName.split(' ').slice(0, -1)
+// .join(' ')
+// const lastName = fullName
+//     .split(' ')
+//     .slice(-1)
+//     .join(' ')
 
 const Menu = ({ history }) => {
     return (
@@ -54,54 +70,82 @@ const Menu = ({ history }) => {
 
                         {/* This is a right Menu */}
                         <ul className="navbar-nav float-sm-right">
-                            <li className="nav-item">
+                            <li className="nav-item mr-2">
                                 <Link
-                                    style={isActive(history, '/login')}
-                                    to="/login"
+                                    // style={isActive(history, '/cart')}
+                                    to="/"
                                     className="nav-link"
                                 >
-                                    Login
+                                    <i className="fas fa-shopping-cart"></i>
                                 </Link>
                             </li>
-                            <li className="nav-item">
-                                <Link
-                                    to="/register"
-                                    className="nav-link"
-                                    style={isActive(history, '/register')}
-                                >
-                                    Register
-                                </Link>
-                            </li>
+                            {!isAuthenticated() && (
+                                <Fragment>
+                                    <li className="nav-item">
+                                        <Link
+                                            style={isActive(history, '/login')}
+                                            to="/login"
+                                            className="nav-link"
+                                        >
+                                            Login
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link
+                                            to="/register"
+                                            className="nav-link"
+                                            style={isActive(
+                                                history,
+                                                '/register'
+                                            )}
+                                        >
+                                            Register
+                                        </Link>
+                                    </li>
+                                </Fragment>
+                            )}
+
+                            {isAuthenticated() && (
+                                <Fragment>
+                                    <li className="nav-item dropdown float-sm-right">
+                                        <span
+                                            className="nav-link dropdown-toggle"
+                                            id="navbarDropdown"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false"
+                                            style={{ cursor: 'pointer' }}
+                                        >
+                                            {firstName()}'S {'  '}
+                                            <i className="fas fa-user"></i>
+                                        </span>
+                                        <div
+                                            className="dropdown-menu"
+                                            aria-labelledby="navbarDropdown"
+                                        >
+                                            <Link className="dropdown-item">
+                                                Profile
+                                            </Link>
+                                            <Link className="dropdown-item">
+                                                History
+                                            </Link>
+                                            <div className="dropdown-divider"></div>
+                                            <span
+                                                onClick={() => {
+                                                    signout(() => {
+                                                        history.push('/')
+                                                    })
+                                                }}
+                                                className="dropdown-item"
+                                                style={{ cursor: 'pointer' }}
+                                            >
+                                                SignOut
+                                            </span>
+                                        </div>
+                                    </li>
+                                </Fragment>
+                            )}
                         </ul>
-                        {/* <ul className="navbar-nav float-sm-right">
-                            <li className="nav-item dropdown float-sm-right">
-                                <span
-                                    className="nav-link dropdown-toggle"
-                                    id="navbarDropdown"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                                    style={{ cursor: 'pointer' }}
-                                >
-                                    Mudza's
-                                </span>
-                                <div
-                                    className="dropdown-menu"
-                                    aria-labelledby="navbarDropdown"
-                                >
-                                    <Link className="dropdown-item">
-                                        Profile
-                                    </Link>
-                                    <Link className="dropdown-item">
-                                        History
-                                    </Link>
-                                    <div className="dropdown-divider"></div>
-                                    <Link className="dropdown-item">
-                                        SignOut
-                                    </Link>
-                                </div>
-                            </li>
-                        </ul> */}
                     </div>
                 </div>
             </nav>

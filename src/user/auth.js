@@ -54,8 +54,45 @@ export const signin = user => {
  * @param {*} next
  */
 export const authenticate = (data, next) => {
-    if (typeof window !== undefined) {
+    if (typeof window !== 'undefined') {
         localStorage.setItem('jwt', JSON.stringify(data))
         next()
+    }
+}
+
+/**
+ *
+ * @param {/signout}
+ * get url param /signout api to delete jwt
+ * and to signout method with ('GET')
+ */
+export const signout = next => {
+    if (typeof window !== undefined) {
+        localStorage.removeItem('jwt')
+        next()
+
+        return fetch(`${API}/signout`, {
+            method: 'GET',
+        })
+            .then(response => {
+                console.log('signout', response)
+            })
+            .catch(err => console.log(err))
+    }
+}
+
+/**
+ * Is Auhtnticated user ( check user  as login or not)
+ *  show name in menu and information via jwt
+ */
+
+export const isAuthenticated = () => {
+    if (typeof window == 'undefined') {
+        return false
+    }
+    if (localStorage.getItem('jwt')) {
+        return JSON.parse(localStorage.getItem('jwt'))
+    } else {
+        return false
     }
 }

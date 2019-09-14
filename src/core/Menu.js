@@ -12,7 +12,7 @@ const isActive = (history, path) => {
 const Menu = ({ history }) => {
     return (
         <div className="">
-            <nav className="navbar navbar-expand-sm navbar-dark bg-primary mb-2">
+            <nav className="navbar navbar-expand-sm navbar-dark bg-main mb-2">
                 <div className="container">
                     <span className="navbar-brand">Home</span>
                     <button

@@ -12,3 +12,31 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
         monospace;
 }
+
+
+.co-main {
+    color: #232f3e;
+}
+
+.co-second {
+    color: #febd69;
+}
+
+.bg-main {
+    background: #232f3e;
+}
+
+.bg-second {
+    background: #f3cd71;
+
+}
+
+.btn-second {
+    background: #f3cd71;
+    border: 1px solid black;
+}
+
+.btn-second:hover {
+    background: #febd69;
+    border: 1px solid black;
+}

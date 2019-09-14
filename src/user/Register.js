@@ -2,19 +2,21 @@ import React, { useState } from 'react'
 import Layout from '../core/Layout'
 import { API } from '../config'
 import { Link } from 'react-router-dom'
+import styles from './Spinner.module.css'
 
 const Register = () => {
     const [values, setValues] = useState({
         name: '',
         email: '',
         password: '',
-        conPassword: '',
         error: '',
         success: false,
+        loading: false,
+        button: false,
     })
 
     // initialisasi
-    const { name, email, password, success, error } = values
+    const { name, email, password, success, error, loading, button } = values
 
     const handleChange = name => event => {
         setValues({ ...values, error: '', [name]: event.target.value })
@@ -48,7 +50,7 @@ const Register = () => {
 
     const clickSubmit = e => {
         e.preventDefault()
-        setValues({ ...values, error: '' })
+        setValues({ ...values, error: '', loading: true, button: true })
         if (isValid()) {
             // calling signup method
             signup({ name, email, password }).then(data => {
@@ -59,14 +61,18 @@ const Register = () => {
                         success: false,
                     })
                 } else {
-                    setValues({
-                        ...values,
-                        name: '',
-                        email: '',
-                        password: '',
-                        error: '',
-                        success: true,
-                    })
+                    setTimeout(() => {
+                        setValues({
+                            ...values,
+                            name: '',
+                            email: '',
+                            password: '',
+                            error: '',
+                            success: true,
+                            loading: false,
+                            button: false,
+                        })
+                    }, 10000)
                 }
             })
             // .catch(err => console.log(err))
@@ -134,18 +140,44 @@ const Register = () => {
                 />
             </div>
 
-            <button className="btn btn-block btn-raised btn-primary my-4">
-                Daftar
-            </button>
+            {button ? (
+                <button
+                    disabled
+                    className="btn btn-raised btn-block btn-waring"
+                >
+                    Daftar
+                </button>
+            ) : (
+                <button className="btn btn-block btn-raised btn-second my-4">
+                    Daftar
+                </button>
+            )}
         </form>
     )
 
+    const spinner = () => (
+        <div className="text-center">
+            <div className={styles.loading}></div>
+        </div>
+    )
+
     return (
-        <Layout className="col-md-6 offset-md-3" title="Register">
-            <h2 className="text-center my-5">Register</h2>
+        <Layout className="col-md-4 offset-md-4 mt-5" title="Register">
             {showError()}
             {showSuccess()}
-            {registerForm()}
+            <div className="card mt-1">
+                <h2 className="text-center card-title pt-4">Register</h2>
+                {loading ? spinner() : ''}
+                <div className="card-body">{registerForm()}</div>
+                <div className="card-footer">
+                    <p className="text-muted">
+                        Sudah punya akun? silahkan{' '}
+                        <Link to="/login">
+                            Login <i className="fas fa-angle-right"></i>
+                        </Link>{' '}
+                    </p>
+                </div>
+            </div>
         </Layout>
     )
 }

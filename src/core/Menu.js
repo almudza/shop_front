@@ -30,7 +30,12 @@ const Menu = ({ history }) => {
         <div className="">
             <nav className="navbar navbar-expand-sm navbar-dark bg-main mb-2">
                 <div className="container">
-                    <span className="navbar-brand">Home</span>
+                    <span
+                        style={{ cursor: 'pointer' }}
+                        className="navbar-brand"
+                    >
+                        Home
+                    </span>
                     <button
                         className="navbar-toggler"
                         type="button"
@@ -57,16 +62,36 @@ const Menu = ({ history }) => {
                                     Shop
                                 </Link>
                             </li>
-                            <li className="nav-item">
-                                <Link
-                                    to="/about"
-                                    className="nav-link"
-                                    style={isActive(history, '/about')}
-                                >
-                                    About
-                                </Link>
-                            </li>
                         </ul>
+
+                        {/* Seatch form Product */}
+                        {/* <div className="d-flex justify-content-center h-100">
+                            <div className="searchbar">
+                                <input
+                                    className="search_input"
+                                    type="text"
+                                    name=""
+                                    placeholder="Search..."
+                                />
+                                <span className="search_icon">
+                                    <i className="fas fa-search"></i>
+                                </span>
+                            </div>
+                        </div> */}
+                        <form className="form-inline mr-auto d-flex justify-content-md-center">
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    id="input-search-custom"
+                                    className="form-control bg-light text-dark"
+                                />
+                                <div className="input-group-append">
+                                    <span className="btn btn-sm btn-second">
+                                        <i className="fas fa-search"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
 
                         {/* This is a right Menu */}
                         <ul className="navbar-nav float-sm-right">

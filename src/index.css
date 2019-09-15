@@ -40,3 +40,70 @@ code {
     background: #febd69;
     border: 1px solid black;
 }
+
+
+
+/* ======= Menu==================== */
+
+/* Search form  small screen */
+@media (min-width: 992px) {
+    #input-search-custom {
+        width: 600px;
+    }
+
+}
+
+/* Latge Screen */
+@media (max-width: 768px) {
+    #input-search-custom {
+        width: auto;
+    }
+}
+
+
+
+
+
+/* 
+.searchbar {
+    margin-bottom: auto;
+    margin-top: auto;
+    height: 40px;
+    background-color: #f5f5f5;
+    border-radius: 30px;
+    padding: 10px;
+}
+
+.search_input {
+    color: #232f3e;
+    border: 0;
+    outline: 0;
+    background: none;
+    width: 0;
+    caret-color: transparent;
+    line-height: 20px;
+    transition: width 0.4s linear;
+}
+
+.searchbar:hover>.search_input {
+    padding: 0 10px;
+    width: 450px;
+    caret-color: #febd69;
+    transition: width 0.4s linear;
+}
+
+.searchbar:hover>.search_icon {
+    background: #febd69;
+    color: #232f3e;
+}
+
+.search_icon {
+    height: 20px;
+    width: 20px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: #232f3e;
+} */

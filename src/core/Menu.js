@@ -26,6 +26,12 @@ const firstName = () => {
 //     .slice(-1)
 //     .join(' ')
 
+const hamberger = () => {
+    const element = document.getElementById('animated')
+    element.classList.toggle('open')
+    return element
+}
+
 const Menu = ({ history }) => {
     return (
         <Fragment>
@@ -42,6 +48,9 @@ const Menu = ({ history }) => {
 
                     {/* Collapse Button */}
                     <button
+                        onClick={() => {
+                            hamberger()
+                        }}
                         className="navbar-toggler first-button"
                         type="button"
                         data-toggle="collapse"
@@ -50,7 +59,7 @@ const Menu = ({ history }) => {
                         aria-expanded="false"
                         aria-label="Toggle navigation"
                     >
-                        <div className="animated-icon">
+                        <div id="animated" className="animated-icon">
                             <span></span>
                             <span></span>
                             <span></span>

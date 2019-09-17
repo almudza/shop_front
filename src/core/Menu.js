@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { signout, isAuthenticated } from '../user/auth'
+import './menu.css'
 
 const isActive = (history, path) => {
     if (history.location.pathname === path) {
@@ -27,69 +28,67 @@ const firstName = () => {
 
 const Menu = ({ history }) => {
     return (
-        <div className="">
-            <nav className="navbar navbar-expand-md navbar-dark bg-main mb-2">
+        <Fragment>
+            <nav className="navbar navbar-expand-md mb-2 navbar-dark bg-main">
                 <div className="container">
-                    <span
-                        style={{ cursor: 'pointer' }}
+                    {/* Navbar brand */}
+                    <Link
+                        to="/"
                         className="navbar-brand"
+                        style={{ cursor: 'pointer' }}
                     >
-                        Home
-                    </span>
+                        Brand
+                    </Link>
 
-                    {/* Cart in mobile only */}
-                    <li className="d-block d-sm-none nav-item mr-2">
-                        <Link
-                            // style={isActive(history, '/cart')}
-                            to="/"
-                            className="nav-link"
-                        >
-                            <i className="fas fa-shopping-cart"></i>
-                        </Link>
-                    </li>
-
+                    {/* Collapse Button */}
                     <button
-                        className="navbar-toggler"
+                        className="navbar-toggler first-button"
                         type="button"
                         data-toggle="collapse"
-                        data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent"
+                        data-target="#navbarSupportContent"
+                        aria-controls="navbarSupportContent"
                         aria-expanded="false"
                         aria-label="Toggle navigation"
                     >
-                        <span className="navbar-toggler-icon"></span>
+                        <div className="animated-icon">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
                     </button>
 
+                    {/* collapsible content */}
                     <div
                         className="collapse navbar-collapse"
-                        id="navbarSupportedContent"
+                        id="navbarSupportContent"
                     >
-                        <ul className="navbar-nav mr-auto">
-                            <li className="nav-item">
-                                <Link
-                                    to="/"
-                                    className="nav-link"
-                                    style={isActive(history, '/')}
+                        {/* link */}
+                        <ul className="navbar-nav ml-2 mr-auto">
+                            <li className="nav-item dropdown float-sm-right">
+                                <span
+                                    className="nav-link dropdown-toggle"
+                                    id="navbarDropdown"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false"
+                                    style={{ cursor: 'pointer' }}
                                 >
-                                    Shop
-                                </Link>
+                                    Categories
+                                </span>
+                                <div
+                                    className="dropdown-menu"
+                                    aria-labelledby="navbarDropdown"
+                                >
+                                    <Link to="/" className="dropdown-item">
+                                        Shoes
+                                    </Link>
+                                    <Link to="/" className="dropdown-item">
+                                        Hondas
+                                    </Link>
+                                </div>
                             </li>
                         </ul>
-
-                        {/* Seatch form Product */}
-                        {/* <div className="d-flex justify-content-center h-100">
-                            <div className="searchbar">
-                                <input
-                                    className="search_input"
-                                    type="text"
-                                    name=""
-                                    placeholder="Search..."
-                                />
-                                <span className="search_icon">
-                                    <i className="fas fa-search"></i>
-                                </span>
-                            </div>
-                        </div> */}
+                        {/* search form */}
                         <form className="form-inline mr-auto d-flex justify-content-md-center">
                             <div className="form-group">
                                 <input
@@ -104,10 +103,8 @@ const Menu = ({ history }) => {
                                 </div>
                             </div>
                         </form>
-
-                        {/* This is a right Menu */}
                         <ul className="navbar-nav float-md-right">
-                            <li className="d-none d-sm-block nav-item mr-2">
+                            <li className="nav-item mr-2">
                                 <Link
                                     // style={isActive(history, '/cart')}
                                     to="/"
@@ -125,18 +122,6 @@ const Menu = ({ history }) => {
                                             className="nav-link"
                                         >
                                             Login
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link
-                                            to="/register"
-                                            className="nav-link"
-                                            style={isActive(
-                                                history,
-                                                '/register'
-                                            )}
-                                        >
-                                            Register
                                         </Link>
                                     </li>
                                 </Fragment>
@@ -166,7 +151,10 @@ const Menu = ({ history }) => {
                                             >
                                                 Dashboard
                                             </Link>
-                                            <Link className="dropdown-item">
+                                            <Link
+                                                to="/"
+                                                className="dropdown-item"
+                                            >
                                                 History
                                             </Link>
                                             <div className="dropdown-divider"></div>
@@ -189,7 +177,7 @@ const Menu = ({ history }) => {
                     </div>
                 </div>
             </nav>
-        </div>
+        </Fragment>
     )
 }
 

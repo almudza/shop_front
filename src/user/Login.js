@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Layout from '../core/Layout'
 import { Link } from 'react-router-dom'
-import { signin, authenticate } from './auth'
+import { signin, authenticate, isAuthenticated } from './auth'
 import { showError } from '../components/ShowError'
 import { spinner } from '../components/Spinner'
 
@@ -14,6 +14,15 @@ const Login = props => {
         loading: false,
         button: false,
     })
+
+    const redirect = () => {
+        if (isAuthenticated()) {
+            let { from } = props.location.state || {
+                from: { pathname: '/' },
+            }
+            props.history.push(from)
+        }
+    }
 
     // initial
     const { email, password, error, button, loading } = values
@@ -40,7 +49,7 @@ const Login = props => {
                         }
                         props.history.push(from)
                     })
-                }, 10000)
+                }, 1000)
             }
         })
     }
@@ -91,6 +100,7 @@ const Login = props => {
 
     return (
         <Layout className="col-md-4 offset-md-4 mt-5" title="Login">
+            {redirect()}
             {showError(error)}
             <div className="card mt-1">
                 <h2 className="text-center card-title pt-4">Login</h2>

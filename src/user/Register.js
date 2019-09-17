@@ -3,9 +3,9 @@ import Layout from '../core/Layout'
 import { Link } from 'react-router-dom'
 import { showError } from '../components/ShowError'
 import { spinner } from '../components/Spinner'
-import { signup } from './auth'
+import { signup, isAuthenticated } from './auth'
 
-const Register = () => {
+const Register = props => {
     const [values, setValues] = useState({
         name: '',
         email: '',
@@ -129,8 +129,18 @@ const Register = () => {
         </form>
     )
 
+    const redirect = () => {
+        if (isAuthenticated()) {
+            let { from } = props.location.state || {
+                from: { pathname: '/' },
+            }
+            props.history.push(from)
+        }
+    }
+
     return (
         <Layout className="col-md-4 offset-md-4 mt-5" title="Register">
+            {redirect()}
             {showError(error)}
             {showSuccess()}
             <div className="card mt-1">

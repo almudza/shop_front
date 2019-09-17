@@ -28,7 +28,7 @@ const firstName = () => {
 const Menu = ({ history }) => {
     return (
         <div className="">
-            <nav className="navbar navbar-expand-sm navbar-dark bg-main mb-2">
+            <nav className="navbar navbar-expand-md navbar-dark bg-main mb-2">
                 <div className="container">
                     <span
                         style={{ cursor: 'pointer' }}
@@ -36,6 +36,18 @@ const Menu = ({ history }) => {
                     >
                         Home
                     </span>
+
+                    {/* Cart in mobile only */}
+                    <li className="d-block d-sm-none nav-item mr-2">
+                        <Link
+                            // style={isActive(history, '/cart')}
+                            to="/"
+                            className="nav-link"
+                        >
+                            <i className="fas fa-shopping-cart"></i>
+                        </Link>
+                    </li>
+
                     <button
                         className="navbar-toggler"
                         type="button"
@@ -94,8 +106,8 @@ const Menu = ({ history }) => {
                         </form>
 
                         {/* This is a right Menu */}
-                        <ul className="navbar-nav float-sm-right">
-                            <li className="nav-item mr-2">
+                        <ul className="navbar-nav float-md-right">
+                            <li className="d-none d-sm-block nav-item mr-2">
                                 <Link
                                     // style={isActive(history, '/cart')}
                                     to="/"
@@ -148,8 +160,11 @@ const Menu = ({ history }) => {
                                             className="dropdown-menu"
                                             aria-labelledby="navbarDropdown"
                                         >
-                                            <Link className="dropdown-item">
-                                                Profile
+                                            <Link
+                                                to="/dashboard"
+                                                className="dropdown-item"
+                                            >
+                                                Dashboard
                                             </Link>
                                             <Link className="dropdown-item">
                                                 History
@@ -164,7 +179,7 @@ const Menu = ({ history }) => {
                                                 className="dropdown-item"
                                                 style={{ cursor: 'pointer' }}
                                             >
-                                                SignOut
+                                                SigunOut
                                             </span>
                                         </div>
                                     </li>

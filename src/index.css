@@ -33,12 +33,12 @@ code {
 
 .btn-second {
     background: #f3cd71;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 .btn-second:hover {
     background: #febd69;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 

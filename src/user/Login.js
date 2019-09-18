@@ -45,7 +45,7 @@ const Login = props => {
                 setTimeout(() => {
                     authenticate(data, () => {
                         let { from } = props.location.state || {
-                            from: { pathname: '/' },
+                            from: { pathname: '/dashboard' },
                         }
                         props.history.push(from)
                     })

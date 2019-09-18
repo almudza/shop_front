@@ -154,12 +154,23 @@ const Menu = ({ history }) => {
                                             className="dropdown-menu"
                                             aria-labelledby="navbarDropdown"
                                         >
-                                            <Link
-                                                to="/dashboard"
-                                                className="dropdown-item"
-                                            >
-                                                Dashboard
-                                            </Link>
+                                            {isAuthenticated() &&
+                                            isAuthenticated().user.role ===
+                                                1 ? (
+                                                <Link
+                                                    to="/admin/dashboard"
+                                                    className="dropdown-item"
+                                                >
+                                                    Dashboard
+                                                </Link>
+                                            ) : (
+                                                <Link
+                                                    to="/user/dashboard"
+                                                    className="dropdown-item"
+                                                >
+                                                    Dashboard
+                                                </Link>
+                                            )}
                                             <Link
                                                 to="/"
                                                 className="dropdown-item"

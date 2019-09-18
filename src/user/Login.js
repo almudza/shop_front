@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Layout from '../core/Layout'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { signin, authenticate, isAuthenticated } from './auth'
 import { showError } from '../components/ShowError'
 import { spinner } from '../components/Spinner'
@@ -13,19 +13,20 @@ const Login = props => {
         error: '',
         loading: false,
         button: false,
+        redirectToReferrer: false,
     })
 
-    const redirect = () => {
-        if (isAuthenticated()) {
-            let { from } = props.location.state || {
-                from: { pathname: '/' },
-            }
-            props.history.push(from)
-        }
-    }
-
     // initial
-    const { email, password, error, button, loading } = values
+    const {
+        email,
+        password,
+        error,
+        button,
+        loading,
+        redirectToReferrer,
+    } = values
+
+    const { user } = isAuthenticated()
 
     const handleChange = name => e => {
         setValues({ ...values, error: '', [name]: e.target.value })
@@ -44,14 +45,27 @@ const Login = props => {
             } else {
                 setTimeout(() => {
                     authenticate(data, () => {
-                        let { from } = props.location.state || {
-                            from: { pathname: '/dashboard' },
-                        }
-                        props.history.push(from)
+                        setValues({
+                            ...values,
+                            redirectToReferrer: true,
+                        })
                     })
                 }, 1000)
             }
         })
+    }
+
+    const redirect = () => {
+        if (redirectToReferrer) {
+            if (user && user.role === 1) {
+                return <Redirect to="/admin/dashboard" />
+            } else {
+                return <Redirect to="/user/dashboard" />
+            }
+        }
+        if (isAuthenticated()) {
+            return <Redirect to="/" />
+        }
     }
 
     const LoginForm = () => (

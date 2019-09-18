@@ -5,6 +5,8 @@ import Login from './user/Login'
 import Home from './core/Home'
 import PrivateRoute from './user/UserPrivateRoute'
 import UserDashboard from './user/UserDashboard'
+import AdminDashboard from './user/AdminDashboard'
+import AdminRoute from './user/AdminRoute'
 
 const Routes = () => {
     return (
@@ -14,9 +16,14 @@ const Routes = () => {
                 <Route path="/login" exact component={Login} />
                 <Route path="/register" exact component={Register} />
                 <PrivateRoute
-                    path="/dashboard"
+                    path="/user/dashboard"
                     exact
                     component={UserDashboard}
+                />
+                <AdminRoute
+                    path="/admin/dashboard"
+                    exact
+                    component={AdminDashboard}
                 />
             </Switch>
         </BrowserRouter>

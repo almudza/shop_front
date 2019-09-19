@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Layout from '../core/Layout'
 import { Link } from 'react-router-dom'
-import { showError } from '../components/ShowError'
+import showError from '../components/ShowError'
 import { spinner } from '../components/Spinner'
 import { signup, isAuthenticated } from './auth'
 

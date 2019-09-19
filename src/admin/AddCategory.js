@@ -2,11 +2,16 @@ import React, { useState } from 'react'
 import Layout from '../core/Layout'
 import { Link } from 'react-router-dom'
 import { isAuthenticated } from '../user/auth'
+import { createCategory } from './apiAdmin'
+import showError from '../components/ShowError'
 
 function AddCategory() {
     const [name, setName] = useState('')
     const [error, setError] = useState(false)
     const [success, setSuccess] = useState(false)
+
+    // desctructure user and token from localstorage
+    const { user, token } = isAuthenticated()
 
     const handleChange = e => {
         setError('')
@@ -20,6 +25,14 @@ function AddCategory() {
         setSuccess(false)
 
         // make request to api to create category
+        createCategory(user._id, token, { name }).then(data => {
+            if (data.error) {
+                setError(data.error)
+            } else {
+                setError('')
+                setSuccess(true)
+            }
+        })
     }
 
     const categoryForm = () => {
@@ -36,6 +49,7 @@ function AddCategory() {
                         value={name}
                         id="name"
                         autoFocus
+                        required
                     />
                 </div>
                 <button className="btn btn-outline-primary">
@@ -45,10 +59,26 @@ function AddCategory() {
         )
     }
 
+    const showSuccess = () => {
+        if (success) {
+            return <h3 className="text-success">{name} is success created</h3>
+        }
+    }
+    const goBack = () => (
+        <div className="mt-5">
+            <Link to="/admin/dashboard">Back to Dashboard</Link>
+        </div>
+    )
+
     return (
         <Layout title="Add Category">
             <div className="row">
-                <div className="col-md-8 offset-md-2">{categoryForm()}</div>
+                <div className="col-md-8 offset-md-2">
+                    {error && showError(`${name} already exist, please unique`)}
+                    {showSuccess()}
+                    {categoryForm()}
+                    {goBack()}
+                </div>
             </div>
         </Layout>
     )

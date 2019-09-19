@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Layout from '../core/Layout'
 import { Link, Redirect } from 'react-router-dom'
 import { signin, authenticate, isAuthenticated } from './auth'
-import { showError } from '../components/ShowError'
+import showError from '../components/ShowError'
 import { spinner } from '../components/Spinner'
 
 const Login = props => {

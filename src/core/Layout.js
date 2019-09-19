@@ -4,7 +4,7 @@ import Menu from '../core/Menu'
 const Layout = ({ title = 'Title', className = 'container', children }) => {
     // Set Header Title
     useEffect(() => {
-        document.title = ` Ecom - ${title}`
+        document.title = `${title} - Ecom`
     })
     return (
         <div>

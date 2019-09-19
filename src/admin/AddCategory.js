@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import Layout from '../core/Layout'
-import { Link } from 'react-router-dom'
+
 import { isAuthenticated } from '../user/auth'
 import { createCategory } from './apiAdmin'
 import showError from '../components/ShowError'
+import { goBackAdminDashboard as goBack } from '../components/goBackAdminDashboard'
 
 function AddCategory() {
     const [name, setName] = useState('')
@@ -64,11 +65,6 @@ function AddCategory() {
             return <h3 className="text-success">{name} is success created</h3>
         }
     }
-    const goBack = () => (
-        <div className="mt-5">
-            <Link to="/admin/dashboard">Back to Dashboard</Link>
-        </div>
-    )
 
     return (
         <Layout title="Add Category">

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { createProduct } from './apiAdmin'
+import { createProduct, getCategories } from './apiAdmin'
 import Layout from '../core/Layout'
 import { goBackAdminDashboard as goBack } from '../components/goBackAdminDashboard'
 import { isAuthenticated } from '../user/auth'
+import showError from '../components/ShowError'
+import { spinner } from '../components/Spinner'
 
 function AddProduct() {
     const [values, setValues] = useState({
@@ -38,26 +40,66 @@ function AddProduct() {
         formData,
     } = values
 
-    useEffect(() => {
-        setValues({
-            ...values,
-            formData: new FormData(),
+    const init = () => {
+        getCategories().then(data => {
+            if (data.error) {
+                setValues({
+                    ...values,
+                    error: data.error,
+                })
+            } else {
+                setValues({
+                    ...values,
+                    categories: data,
+                    formData: new FormData(),
+                })
+            }
         })
+    }
+
+    useEffect(() => {
+        init()
     }, [])
 
     const handleChange = name => event => {
         const value =
             name === 'photo' ? event.target.files[0] : event.target.value
         formData.set(name, value)
-        setValues({ ...values, [name]: value })
+        setValues({ ...values, [name]: value, error: '', createdProduct: '' })
     }
 
-    const clickSubmit = () => {
+    const clickSubmit = event => {
         //
+        event.preventDefault()
+        setValues({
+            ...values,
+            error: '',
+            loading: true,
+            createdProduct: '',
+        })
+
+        createProduct(user._id, token, formData).then(data => {
+            if (data.error) {
+                setValues({ ...values, error: data.error, createdProduct: '' })
+            } else {
+                setValues({
+                    ...values,
+                    error: '',
+                    name: '',
+                    description: '',
+                    photo: '',
+                    price: '',
+                    quantity: '',
+                    loading: false,
+                    createdProduct: data.name,
+                    formData: new FormData(),
+                })
+            }
+        })
     }
 
     const newProductForm = () => (
-        <form onSubmit={clickSubmit} className="mb-3">
+        <form onSubmit={clickSubmit}>
             <h4 className="text-muted">Post Photo</h4>
             <div className="form-group">
                 <label className="btn btn-secondary">
@@ -110,8 +152,15 @@ function AddProduct() {
                     className="form-control"
                     onChange={handleChange('category')}
                 >
-                    <option>choose</option>
-                    <option value="3434rwrw34">Node</option>
+                    <option>Select category</option>
+                    {categories &&
+                        categories.map((cat, i) => {
+                            return (
+                                <option key={i} value={cat._id}>
+                                    {cat.name}{' '}
+                                </option>
+                            )
+                        })}
                 </select>
             </div>
             <div className="form-group">
@@ -124,6 +173,7 @@ function AddProduct() {
                     className="form-select"
                     onChange={handleChange('shipping')}
                 >
+                    <option>Please Select</option>
                     <option value="0">No</option>
                     <option value="1">Yes</option>
                 </select>
@@ -141,13 +191,21 @@ function AddProduct() {
             <button className="btn btn-primary">Create</button>
         </form>
     )
+    const productCreated = () => (
+        <div className="alert alert-primary">{createdProduct} success</div>
+    )
 
     return (
         <Layout title="Add Product">
             <div className="row">
-                <div className="col-md-8 offset-md-2">Add Product</div>
-                {newProductForm()}
-                {goBack()}
+                <div className="col-md-8 offset-md-2">
+                    <h2 className="text-muted my-5">Add Product</h2>
+                    {error && showError(error)}
+                    {createdProduct && productCreated()}
+                    {loading && spinner()}
+                    {newProductForm()}
+                    {goBack()}
+                </div>
             </div>
         </Layout>
     )

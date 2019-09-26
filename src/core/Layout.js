@@ -9,9 +9,9 @@ const Layout = ({ title = 'Title', className = 'container', children }) => {
     return (
         <div>
             <Menu />
-            <div className="container">
-                <div className={className}>{children}</div>
-            </div>
+            {/* <div className="container"> */}
+            <div className={className}>{children}</div>
+            {/* </div> */}
         </div>
     )
 }

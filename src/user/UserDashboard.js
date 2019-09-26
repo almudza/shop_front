@@ -1,7 +1,7 @@
 import React from 'react'
 import Layout from '../core/Layout'
 import { isAuthenticated } from './auth'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 const UserDashboard = () => {
     const {
@@ -54,6 +54,9 @@ const UserDashboard = () => {
         )
     }
 
+    if (role === 1) {
+        return <Redirect to="/admin/dashboard" />
+    }
     return (
         <Layout title={`${name} Dashboard`}>
             <div className="row">

@@ -8,8 +8,8 @@ function ShowImage({ item, url }) {
             <img
                 src={`${API}/${url}/photo/${item._id}?${new Date().getTime()}`}
                 alt={item.name}
-                style={{ maxHeight: '100%', maxWidth: '100%' }}
-                className="mb-3"
+                style={{ maxHeight: '150px', maxWidth: '100%' }}
+                className="mb-3 card-img-top"
                 onError={img => (img.target.src = `${defaultImg}`)}
             />
         </div>

@@ -4,17 +4,16 @@ import ShowImage from './ShowImage'
 
 const Cart = ({ product }) => {
     return (
-        <div className="col-md-4 my-3">
+        <div className="col-md-3 my-3">
             <div className="card">
-                <div className="card-header">{product.name}</div>
+                {/* <div className="card-header">{product.name}</div> */}
+                <ShowImage item={product} url="product" />
                 <div className="card-body">
-                    <ShowImage item={product} url="product" />
-                    <p>{product.description} </p>
-                    <p>{product.price} </p>
-                    <Link to="/" className="btn btn-outline-primary mr-2">
-                        View Product
+                    <Link to="/">
+                        <p>{product.name} </p>
                     </Link>
-                    <Link to="/" className="btn btn-outline-warning">
+                    <p>${product.price}</p>
+                    <Link to="/" className="btn btn-outline-danger">
                         Add to Cart
                     </Link>
                 </div>

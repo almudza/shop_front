@@ -73,7 +73,16 @@ const Menu = ({ history }) => {
                     >
                         {/* link */}
                         <ul className="navbar-nav ml-2 mr-auto">
-                            <li className="nav-item dropdown float-sm-right">
+                            <li className="nav-item">
+                                <Link
+                                    to="/shop"
+                                    className="nav-link"
+                                    style={isActive(history, '/shop')}
+                                >
+                                    Shop
+                                </Link>
+                            </li>
+                            <li className="nav-item dropdown">
                                 <span
                                     className="nav-link dropdown-toggle"
                                     id="navbarDropdown"

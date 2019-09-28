@@ -8,7 +8,7 @@ function Checkbox({ categories, handleFilters }) {
         // console.log('check is ', checked)
         // indexOf c === -1 cause value checked is -1 (pertama dari belakang)
         const currentCategoryId = checked.indexOf(c)
-        console.log('currentCategoryId', currentCategoryId)
+        // console.log('currentCategoryId', currentCategoryId)
         const newCheckedCategoryId = [...checked]
         // if currently checked was not already in hecked state > push
         // else pull /take off
@@ -18,8 +18,10 @@ function Checkbox({ categories, handleFilters }) {
             // and remove where currentCategoryId = id checked with 1 item
             newCheckedCategoryId.splice(currentCategoryId, 1)
         }
-        console.log('newCheckedCategoryId', newCheckedCategoryId)
+        // console.log('newCheckedCategoryId', newCheckedCategoryId)
         setChecked(newCheckedCategoryId)
+
+        // passing data to parent / Shop
         handleFilters(newCheckedCategoryId)
     }
 

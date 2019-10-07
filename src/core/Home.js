@@ -3,6 +3,7 @@ import Layout from './Layout'
 import { getProducts } from './apiCore'
 import Cart from './Card'
 import showError from '../components/ShowError'
+import Search from './Search'
 
 const Home = () => {
     const [productBySell, setProductBySell] = useState([])
@@ -40,6 +41,7 @@ const Home = () => {
             className="container"
             description="Node ecommerce"
         >
+            <Search />
             {error && showError(error)}
             <h2 className="mb-4">Best Seller</h2>
             <div className="row">

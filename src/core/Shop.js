@@ -138,7 +138,9 @@ function Shop() {
                     <h2 className="mb-4">Products</h2>
                     <div className="row">
                         {filteredResults.map((product, i) => (
-                            <Card key={i} product={product} />
+                            <div className="col-md-3 my-3">
+                                <Card key={i} product={product} />
+                            </div>
                         ))}
                     </div>
                     <hr />

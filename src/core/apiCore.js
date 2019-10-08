@@ -45,3 +45,25 @@ export const listSearch = params => {
         })
         .catch(err => console.log(err))
 }
+
+// Show product detail
+export const read = productId => {
+    return fetch(`${API}/product/${productId}`, {
+        method: 'GET',
+    })
+        .then(response => {
+            return response.json()
+        })
+        .catch(err => console.log(err))
+}
+
+// Related Product
+export const listRelated = productId => {
+    return fetch(`${API}/product/related/${productId}`, {
+        method: 'GET',
+    })
+        .then(response => {
+            return response.json()
+        })
+        .catch(err => console.log(err))
+}

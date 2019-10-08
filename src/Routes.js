@@ -10,6 +10,7 @@ import AdminRoute from './user/AdminRoute'
 import AddCategory from './admin/AddCategory'
 import AddProduct from './admin/AddProduct'
 import Shop from './core/Shop'
+import Product from './core/Product'
 
 const Routes = () => {
     return (
@@ -19,6 +20,7 @@ const Routes = () => {
                 <Route path="/login" exact component={Login} />
                 <Route path="/register" exact component={Register} />
                 <Route path="/shop" exact component={Shop} />
+                <Route path="/product/:productId" exact component={Product} />
                 <PrivateRoute
                     path="/user/dashboard"
                     exact

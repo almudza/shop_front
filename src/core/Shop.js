@@ -8,6 +8,7 @@ import { prices } from './fixedPrices'
 import { getFilteredProducts } from './apiCore'
 
 function Shop() {
+    const [skip, setSkip] = useState(0)
     const [categories, setCategories] = useState([])
     const [error, setError] = useState(false)
 
@@ -16,9 +17,14 @@ function Shop() {
     })
 
     const [limit, setLimit] = useState(6)
-    const [skip, setSkip] = useState(0)
     const [size, setSize] = useState(0)
     const [filteredResults, setFilteredResults] = useState([])
+
+    useEffect(() => {
+        init()
+
+        loadFilteredResult(skip, limit, myFilters.filters)
+    }, [])
 
     const init = () => {
         getCategories()
@@ -33,11 +39,13 @@ function Shop() {
     }
 
     const loadFilteredResult = newFilters => {
+        setSkip(0)
         console.log(newFilters)
         getFilteredProducts(skip, limit, newFilters).then(data => {
             if (data.error) {
                 setError(data.error)
             } else {
+                console.log('from data: ', data)
                 setFilteredResults(data.data)
                 setSize(data.size)
                 setSkip(0)
@@ -73,16 +81,13 @@ function Shop() {
         )
     }
 
-    useEffect(() => {
-        init()
-        loadFilteredResult(skip, limit, myFilters.filters)
-    }, [])
-
     // filter by Category
     const handleFilters = (filters, filterBy) => {
         const newFilters = { ...myFilters }
         newFilters.filters[filterBy] = filters
         console.log(filters, 'fikl')
+        setLimit(6)
+        setSkip(0)
 
         // price
         if (filterBy === 'price') {
@@ -92,7 +97,7 @@ function Shop() {
 
         // load filter to show product
         console.log('loadfilter', myFilters.filters)
-        loadFilteredResult(myFilters.filters)
+        // loadFilteredResult(myFilters.filters)
 
         setMyFilters(newFilters)
         console.log('new filters', newFilters)
@@ -111,11 +116,29 @@ function Shop() {
         return array
     }
 
+    const clickApply = e => {
+        e.preventDefault()
+        setSkip(0)
+        loadFilteredResult(myFilters.filters)
+    }
+
+    const apply = () => {
+        return (
+            <button
+                type="submit"
+                onClick={clickApply}
+                className="btn my-2 btn-sm btn-outline-primary"
+            >
+                Apply
+            </button>
+        )
+    }
+
     return (
         <Layout title="Shop">
             <div className="row">
                 <div className="col-md-3">
-                    <h4>Filter By Category</h4>
+                    <h4 id="filt">Filter By Category</h4>
                     <ul className="form-check">
                         <Checkbox
                             categories={categories}
@@ -133,6 +156,7 @@ function Shop() {
                             }
                         />
                     </div>
+                    {apply()}
                 </div>
                 <div className="col-md-9">
                     <h2 className="mb-4">Products</h2>

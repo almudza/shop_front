@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { signout, isAuthenticated } from '../user/auth'
 import './menu.css'
+import { itemTotal } from './cartHelpers'
 
 const isActive = (history, path) => {
     if (history.location.pathname === path) {
@@ -91,7 +92,7 @@ const Menu = ({ history }) => {
                                     aria-expanded="false"
                                     style={{ cursor: 'pointer' }}
                                 >
-                                    Categories
+                                    Category
                                 </span>
                                 <div
                                     className="dropdown-menu"
@@ -125,10 +126,17 @@ const Menu = ({ history }) => {
                             <li className="nav-item mr-2">
                                 <Link
                                     // style={isActive(history, '/cart')}
-                                    to="/"
+                                    to="/cart"
                                     className="nav-link"
+                                    style={isActive(history, '/cart')}
                                 >
-                                    <i className="fas fa-shopping-cart"></i>
+                                    <i className="fas fa-shopping-cart">
+                                        <sup>
+                                            <small className="cart-badge">
+                                                {itemTotal()}
+                                            </small>
+                                        </sup>
+                                    </i>
                                 </Link>
                             </li>
                             {!isAuthenticated() && (

@@ -1,14 +1,17 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, Redirect } from 'react-router-dom'
 import ShowImage from './ShowImage'
 import moment from 'moment'
+import { addItem } from './cartHelpers'
 
-const Cart = ({
+const Card = ({
     product,
     showViewDetail = true,
     quantity = false,
     description = false,
 }) => {
+    const [redirect, setRedirect] = useState(false)
+
     const showViewLink = showViewDetail => {
         return showViewDetail ? (
             <Link to={`/product/${product._id}`}>
@@ -37,19 +40,32 @@ const Cart = ({
         }
     }
 
+    const addToCart = () => {
+        addItem(product, () => {
+            setRedirect(true)
+        })
+    }
+
+    const shouldRedirect = () => {
+        if (redirect) {
+            return <Redirect to="/cart" />
+        }
+    }
+
     return (
         <div className="card">
             {/* <div className="card-header">{product.name}</div> */}
             <ShowImage item={product} url="product" />
             <div className="card-body">
+                {shouldRedirect(redirect)}
                 {showViewLink(showViewDetail)}
                 {showStock(quantity)}
                 <p>${product.price}</p>
                 <p>Category: {product.category && product.category.name}</p>
                 {showDescription(description)}
-                <Link to="/" className="btn btn-outline-danger">
+                <button onClick={addToCart} className="btn btn-outline-danger">
                     Add to Cart
-                </Link>
+                </button>
             </div>
             <div className="card-footer">
                 <span className="text-secondary mb-2">
@@ -61,4 +77,4 @@ const Cart = ({
     )
 }
 
-export default Cart
+export default Card

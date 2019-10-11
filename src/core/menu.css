@@ -69,3 +69,24 @@
     -o-transform: rotate(-135deg);
     transform: rotate(-135deg);
 }
+
+
+/*  cart total menu */
+.cart-badge {
+
+    border-radius: 50%;
+    padding: 2px;
+    font-size: 12px;
+    font-style: italic;
+    background: whitesmoke;
+    color: black;
+}
+
+.cart-badge:hover {
+    border-radius: 50%;
+    padding: 2px;
+    font-size: 12px;
+    font-style: italic;
+    color: blueviolet;
+    background: rgba(245, 245, 245, 0.788);
+}

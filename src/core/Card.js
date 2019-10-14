@@ -9,6 +9,7 @@ const Card = ({
     showViewDetail = true,
     quantity = false,
     description = false,
+    showAddToCartButton = true,
 }) => {
     const [redirect, setRedirect] = useState(false)
 
@@ -52,6 +53,16 @@ const Card = ({
         }
     }
 
+    const showAddToCart = showAddToCartButton => {
+        return (
+            showAddToCartButton && (
+                <button onClick={addToCart} className="btn btn-outline-danger">
+                    Add to Cart
+                </button>
+            )
+        )
+    }
+
     return (
         <div className="card">
             {/* <div className="card-header">{product.name}</div> */}
@@ -63,9 +74,7 @@ const Card = ({
                 <p>${product.price}</p>
                 <p>Category: {product.category && product.category.name}</p>
                 {showDescription(description)}
-                <button onClick={addToCart} className="btn btn-outline-danger">
-                    Add to Cart
-                </button>
+                {showAddToCart(showAddToCartButton)}
             </div>
             <div className="card-footer">
                 <span className="text-secondary mb-2">

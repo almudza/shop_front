@@ -16,9 +16,21 @@ function Cart() {
             <>
                 <h2>Your cart has {`${items.length}`}</h2>
                 <div className="row">
-                    {/* {items.map((product, i) => ( */}
-                    <CartProduct products={items} />
-                    {/* ))} */}
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Product</th>
+                                <th>price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        {items.map((product, i) => (
+                            <CartProduct key={i} product={product} />
+                        ))}
+                    </table>
                 </div>
             </>
         )

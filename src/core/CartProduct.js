@@ -2,18 +2,24 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { API } from '../config'
 import defaultImg from '../img/people.jpg'
-import { updateItem } from './cartHelpers'
+import { updateItem, removeItem, getCart } from './cartHelpers'
 
-function CartProduct({ product }) {
+function CartProduct({
+    product,
+    setRun = f => f, // default value of function,
+    run = undefined, // default value of undefined
+}) {
     const [count, setCount] = useState(product.count)
 
     const handleChange = productId => event => {
+        setRun(!run) // run useEffect in parent Cart
         setCount(event.target.value < 1 ? 1 : event.target.value)
 
         if (event.target.value >= 1) {
             updateItem(productId, event.target.value)
         }
     }
+
     return (
         <>
             <tbody>
@@ -50,7 +56,17 @@ function CartProduct({ product }) {
                         {' '}
                         <span className="mr-auto col-md-4">7999</span>{' '}
                     </td>
-                    <td>delete</td>
+                    <td>
+                        <span
+                            onClick={() => {
+                                setRun(!run) // run useEffect in parent Cart
+                                removeItem(product._id)
+                            }}
+                            className="btn btn-danger"
+                        >
+                            <i class="fas fa-trash"></i>
+                        </span>
+                    </td>
                 </tr>
             </tbody>
         </>

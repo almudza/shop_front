@@ -6,10 +6,11 @@ import { getCart } from './cartHelpers'
 
 function Cart() {
     const [items, setItems] = useState([])
+    const [run, setRun] = useState(false)
 
     useEffect(() => {
         setItems(getCart())
-    }, [])
+    }, [run])
 
     const showItems = items => {
         return (
@@ -28,7 +29,12 @@ function Cart() {
                             </tr>
                         </thead>
                         {items.map((product, i) => (
-                            <CartProduct key={i} product={product} />
+                            <CartProduct
+                                key={i}
+                                setRun={setRun}
+                                run={run}
+                                product={product}
+                            />
                         ))}
                     </table>
                 </div>

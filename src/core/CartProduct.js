@@ -9,11 +9,11 @@ function CartProduct({
     setRun = f => f, // default value of function,
     run = undefined, // default value of undefined
 }) {
-    const [count, setCount] = useState(product.count)
+    // const [count, setCount] = useState(product.count)
 
     const handleChange = productId => event => {
         setRun(!run) // run useEffect in parent Cart
-        setCount(event.target.value < 1 ? 1 : event.target.value)
+        // setCount(event.target.value < 1 ? 1 : event.target.value)
 
         if (event.target.value >= 1) {
             updateItem(productId, event.target.value)
@@ -22,7 +22,7 @@ function CartProduct({
 
     const getTotalPrice = product => {
         // console.log('count', count, 'prod.price : ', product.price)
-        return count * product.price
+        return product.count * product.price
     }
 
     return (

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { API } from '../config'
 import defaultImg from '../img/people.jpg'
-import { updateItem, removeItem, getCart } from './cartHelpers'
+import { updateItem, removeItem } from './cartHelpers'
 
 function CartProduct({
     product,
@@ -18,6 +18,11 @@ function CartProduct({
         if (event.target.value >= 1) {
             updateItem(productId, event.target.value)
         }
+    }
+
+    const getTotalPrice = product => {
+        // console.log('count', count, 'prod.price : ', product.price)
+        return count * product.price
     }
 
     return (
@@ -43,24 +48,26 @@ function CartProduct({
                             {product.name}
                         </Link>
                     </td>
-                    <td>Rp. {product.price} </td>
+                    <td>$ {product.price} </td>
                     <td>
                         <input
                             type="number"
-                            value={count}
+                            value={product.count}
                             onChange={handleChange(product._id)}
                             className="form-control col-md-2"
                         />
                     </td>
                     <td>
                         {' '}
-                        <span className="mr-auto col-md-4">7999</span>{' '}
+                        <span className="mr-auto col-md-4">
+                            ${getTotalPrice(product)}
+                        </span>{' '}
                     </td>
                     <td>
                         <span
                             onClick={() => {
-                                setRun(!run) // run useEffect in parent Cart
                                 removeItem(product._id)
+                                setRun(!run) // run useEffect in parent Cart
                             }}
                             className="btn btn-danger"
                         >

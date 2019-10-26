@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { isAuthenticated } from '../user/auth'
-import { getBraintreeClientToken, processPayment } from './apiCore'
+import { getBraintreeClientToken, processPayment, createOrder } from './apiCore'
 import DropIn from 'braintree-web-drop-in-react'
 import { emptyCart } from './cartHelpers'
 
@@ -84,15 +84,30 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
                             success: response.success,
                         })
 
-                        // called Remove cart item
-                        emptyCart(() => {
-                            setRun(!run)
-                            setData({
-                                success: true,
+                        // store to backend data order
+                        const createOrderData = {
+                            products: products,
+                            transaction_id: response.transaction.id,
+                            amount: response.transaction.amount,
+                            address: data.address,
+                        }
+
+                        createOrder(userId, token, createOrderData)
+                            .then(response => {
+                                // called Remove cart item (empty Cart)
+                                // emptyCart(() => {
+                                //     setRun(!run)
+                                //     setData({
+                                //         success: true,
+                                //     })
+                                //     setData({ loading: false })
+                                //     console.log('transaction success and remove item')
+                                // })
                             })
-                            setData({ loading: false })
-                            console.log('transaction success and remove item')
-                        })
+                            .catch(error => {
+                                console.log(error)
+                                setData({ loading: false })
+                            })
                     })
                     .catch(error => {
                         setData({ loading: false })
@@ -105,10 +120,24 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
             })
     }
 
+    const handleAddress = event => {
+        setData({ ...data, address: event.target.value })
+    }
+
     const showDropin = () => (
         <div onBlur={() => setData({ ...data, error: '' })}>
             {data.clientToken !== null && products.length > 0 ? (
                 <div>
+                    <div className="form-group mb-3">
+                        <label className="text-muted">Delivery Address</label>
+                        <textarea
+                            onChange={handleAddress}
+                            value={data.address}
+                            className="form-control"
+                            placeholder="Type your delivery address here.."
+                        ></textarea>
+                    </div>
+
                     <DropIn
                         options={{
                             authorization: data.clientToken,

@@ -1,6 +1,16 @@
 import { API } from '../config'
 import queryString from 'query-string'
 
+/**
+ * ==============@NOTE JSON TYPE of server api commincate==
+ * ===============@JSON or @OBJECT =======================
+ *
+ */
+//  if data from front end or input = Object type and then store to
+//  api where use json to communicate
+// if data send from api or server api is Json type not
+// to be change to object
+
 export const getProducts = sortBy => {
     return fetch(`${API}/product?sortBy=${sortBy}&order=desc&imit=6`, {
         method: 'GET',
@@ -95,6 +105,28 @@ export const processPayment = (userId, token, paymentData) => {
             Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(paymentData),
+    })
+        .then(response => {
+            return response.json()
+        })
+        .catch(err => console.log(err))
+}
+
+/**
+ * ================ Order Create to backend api server -=========
+ * =============@method POST ======================
+ * ==============@url /api/order/create/:userId =====
+ */
+
+export const createOrder = (userId, token, createOrderData) => {
+    return fetch(`${API}/order/create/${userId}`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(createOrderData),
     })
         .then(response => {
             return response.json()

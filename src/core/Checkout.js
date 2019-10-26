@@ -109,7 +109,10 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
                         }}
                         onInstance={instance => (data.instance = instance)}
                     />
-                    <button onClick={buy} className="btn btn-success">
+                    <button
+                        onClick={buy}
+                        className="btn btn-block btn-outline-success"
+                    >
                         Pay
                     </button>
                 </div>

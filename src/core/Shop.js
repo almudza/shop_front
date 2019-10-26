@@ -40,7 +40,7 @@ function Shop() {
 
     const loadFilteredResult = newFilters => {
         setSkip(0)
-        console.log(newFilters)
+        // console.log(newFilters)
         getFilteredProducts(skip, limit, newFilters).then(data => {
             if (data.error) {
                 setError(data.error)
@@ -85,7 +85,7 @@ function Shop() {
     const handleFilters = (filters, filterBy) => {
         const newFilters = { ...myFilters }
         newFilters.filters[filterBy] = filters
-        console.log(filters, 'fikl')
+        // console.log(filters, 'fikl')
         setLimit(6)
         setSkip(0)
 
@@ -96,11 +96,11 @@ function Shop() {
         }
 
         // load filter to show product
-        console.log('loadfilter', myFilters.filters)
+        // console.log('loadfilter', myFilters.filters)
         // loadFilteredResult(myFilters.filters)
 
         setMyFilters(newFilters)
-        console.log('new filters', newFilters)
+        // console.log('new filters', newFilters)
     }
 
     // Filter By price

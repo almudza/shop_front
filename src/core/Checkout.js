@@ -7,6 +7,7 @@ import { emptyCart } from './cartHelpers'
 
 const Checkout = ({ products, setRun = f => f, run = undefined }) => {
     const [data, setData] = useState({
+        loading: false,
         success: false,
         clientToken: null,
         error: '',
@@ -54,6 +55,7 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
     }
 
     const buy = () => {
+        setData({ loading: true })
         // send the nonce to your server
         // nonce = data.instance.requestPaymenMethod()
         let nonce
@@ -88,10 +90,14 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
                             setData({
                                 success: true,
                             })
+                            setData({ loading: false })
                             console.log('transaction success and remove item')
                         })
                     })
-                    .catch(error => console.log(error))
+                    .catch(error => {
+                        setData({ loading: false })
+                        console.log(error)
+                    })
             })
             .catch(error => {
                 // console.log('dropin error : ', error)
@@ -106,6 +112,9 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
                     <DropIn
                         options={{
                             authorization: data.clientToken,
+                            paypal: {
+                                flow: 'vault',
+                            },
                         }}
                         onInstance={instance => (data.instance = instance)}
                     />
@@ -138,9 +147,13 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
         </div>
     )
 
+    const showLoading = loading =>
+        loading && <h2 className="text-danger">Loading...</h2>
+
     return (
         <div>
             <h2>Total : ${getTotal()}</h2>
+            {showLoading(data.loading)}
             {showSuccess(data.success)}
             {showError(data.error)}
             {showCheckout()}

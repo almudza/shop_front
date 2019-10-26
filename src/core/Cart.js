@@ -59,7 +59,7 @@ function Cart() {
             </div>
             <div className="col-md-4 offset-md-8">
                 <h2 className="mb-4">Your cart summary</h2>
-                <Checkout products={items} />
+                <Checkout products={items} setRun={setRun} run={run} />
             </div>
         </Layout>
     )

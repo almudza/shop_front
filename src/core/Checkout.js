@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom'
 import { isAuthenticated } from '../user/auth'
 import { getBraintreeClientToken, processPayment } from './apiCore'
 import DropIn from 'braintree-web-drop-in-react'
+import { emptyCart } from './cartHelpers'
 
-const Checkout = ({ products }) => {
+const Checkout = ({ products, setRun = f => f, run = undefined }) => {
     const [data, setData] = useState({
         success: false,
         clientToken: null,
@@ -79,6 +80,15 @@ const Checkout = ({ products }) => {
                         setData({
                             ...data,
                             success: response.success,
+                        })
+
+                        // called Remove cart item
+                        emptyCart(() => {
+                            setRun(!run)
+                            setData({
+                                success: true,
+                            })
+                            console.log('transaction success and remove item')
                         })
                     })
                     .catch(error => console.log(error))

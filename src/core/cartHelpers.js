@@ -97,3 +97,15 @@ export const removeItem = productId => {
     }
     return cart
 }
+
+/**
+ * ============= Remove / Empty cart after success payment =============
+ *  ============== Empty cart item===========
+ */
+
+export const emptyCart = next => {
+    if (typeof window !== 'undefined') {
+        localStorage.removeItem('cart')
+        next()
+    }
+}

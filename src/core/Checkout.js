@@ -95,14 +95,14 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
                         createOrder(userId, token, createOrderData)
                             .then(response => {
                                 // called Remove cart item (empty Cart)
-                                // emptyCart(() => {
-                                //     setRun(!run)
-                                //     setData({
-                                //         success: true,
-                                //     })
-                                //     setData({ loading: false })
-                                //     console.log('transaction success and remove item')
-                                // })
+                                emptyCart(() => {
+                                    setRun(!run)
+
+                                    setData({ loading: false, success: true })
+                                    console.log(
+                                        'transaction success and remove item'
+                                    )
+                                })
                             })
                             .catch(error => {
                                 console.log(error)

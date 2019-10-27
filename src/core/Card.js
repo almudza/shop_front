@@ -28,10 +28,12 @@ const Card = ({
     }
 
     const showStock = quantity => {
-        if (quantity) {
-            return quantity && product.quantity > 0 ? (
+        if (quantity && product.quantity >= 1) {
+            return (
                 <span className="badge badge-primary badge-pill">In Stock</span>
-            ) : (
+            )
+        } else if (quantity && product.quantity == 0) {
+            return (
                 <span className="badge badge-danger badge-pill">
                     Out of Stock
                 </span>
@@ -53,14 +55,31 @@ const Card = ({
         }
     }
 
+    const apiWA = () => {
+        window.open(
+            `https://api.whatsapp.com/send?phone=6285326254559&text=%22Mau%20Pesan%20produk%20ini%20/product/${product._id}`
+        )
+    }
+
     const showAddToCart = showAddToCartButton => {
-        return (
-            showAddToCartButton && (
-                <button onClick={addToCart} className="btn btn-outline-danger">
-                    Add to Cart
+        if (product.quantity != 0) {
+            return (
+                showAddToCartButton && (
+                    <button
+                        onClick={addToCart}
+                        className="btn btn-outline-danger"
+                    >
+                        Add to Cart
+                    </button>
+                )
+            )
+        } else {
+            return (
+                <button onClick={apiWA} className="btn btn-outline-info">
+                    Pre Order
                 </button>
             )
-        )
+        }
     }
 
     return (

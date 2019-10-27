@@ -15,7 +15,7 @@ function CartProduct({
         setRun(!run) // run useEffect in parent Cart
         // setCount(event.target.value < 1 ? 1 : event.target.value)
 
-        if (event.target.value >= 1) {
+        if (event.target.value >= 1 && event.target.value <= product.quantity) {
             updateItem(productId, event.target.value)
         }
     }

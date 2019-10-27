@@ -40,7 +40,7 @@ function Product(props) {
                             product={product}
                             description={product.description}
                             showViewDetail={false}
-                            quantity={product.quantity}
+                            quantity={product}
                         />
                     )}
                 </div>

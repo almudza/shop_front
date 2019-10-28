@@ -1,6 +1,6 @@
 import React from 'react'
 import { API } from '../config'
-import defaultImg from '../img/people.jpg'
+import defaultImg from '../img/california.jpg'
 
 function ShowImage({ item, url }) {
     return (

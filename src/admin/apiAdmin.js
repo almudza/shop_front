@@ -53,3 +53,23 @@ export const getCategories = () => {
         })
         .catch(err => console.log(err))
 }
+
+/**
+ * =============@method GET ======================================
+ * =============@url /api/order/list/:userId ==================
+ * =============@desc get show all Orders authenticated by Admin ============
+ */
+
+export const listOrders = (userId, token) => {
+    return fetch(`${API}/order/list/${userId}`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then(response => {
+            return response.json()
+        })
+        .catch(err => console.log(err))
+}

@@ -39,7 +39,7 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
 
     const getTotal = () => {
         return products.reduce((currentValue, nextValue) => {
-            console.log('currentValue', currentValue, 'next', nextValue.count)
+            // console.log('currentValue', currentValue, 'next', nextValue.count)
             return currentValue + nextValue.count * nextValue.price
         }, 0)
     }

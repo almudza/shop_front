@@ -3,6 +3,7 @@ import Layout from '../core/Layout'
 import { isAuthenticated } from '../user/auth'
 import { listOrders } from './apiAdmin'
 import moment from 'moment'
+import { Link } from 'react-router-dom'
 
 const Orders = () => {
     const [orders, setOrders] = useState([])
@@ -45,6 +46,10 @@ const Orders = () => {
         return <p> {count}</p>
     }
 
+    const showDetailLink = link => {
+        return <Link to={`/order/${link}`}>{link}</Link>
+    }
+
     return (
         <Layout title="Orders List">
             <div className="row">
@@ -70,7 +75,7 @@ const Orders = () => {
                             {orders.map(order => {
                                 return (
                                     <tr key={order._id}>
-                                        <td>{order._id}</td>
+                                        <td>{showDetailLink(order._id)}</td>
                                         <td>{order.transaction_id}</td>
                                         <td>{order.amount}</td>
                                         <td>{order.user.name}</td>

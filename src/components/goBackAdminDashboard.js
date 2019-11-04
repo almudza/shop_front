@@ -8,3 +8,12 @@ export const goBackAdminDashboard = () => {
         </div>
     )
 }
+
+// Back to Orders
+export const goBackOrders = () => {
+    return (
+        <div className="my-5">
+            <Link to="/admin/orders/list">Back to Orders</Link>
+        </div>
+    )
+}

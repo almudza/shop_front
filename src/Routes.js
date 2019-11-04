@@ -13,6 +13,7 @@ import Shop from './core/Shop'
 import Product from './core/Product'
 import Cart from './core/Cart'
 import Orders from './admin/Orders'
+import OrderDetail from './admin/OrderDetail'
 
 const Routes = () => {
     return (
@@ -44,7 +45,16 @@ const Routes = () => {
                     exact
                     component={AddProduct}
                 />
-                <AdminRoute path="/orders/list" exact component={Orders} />
+                <AdminRoute
+                    path="/admin/orders/list"
+                    exact
+                    component={Orders}
+                />
+                <AdminRoute
+                    path="/order/:orderId"
+                    exact
+                    component={OrderDetail}
+                />
             </Switch>
         </BrowserRouter>
     )
